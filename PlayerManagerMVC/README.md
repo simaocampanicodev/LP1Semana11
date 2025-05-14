@@ -2,13 +2,8 @@
 
 ## UML Class Diagram
 
-<<<<<<< HEAD
 ``` markdown
 mermaid classDiagram class Player { +Name: string +Score: int +ToString(): string +CompareTo(Player): int }
-=======
-```
-classDiagram
->>>>>>> 849ac1b97601488b11623d6c56276ef749f1e48b
 class PlayerView {
     +ShowMenu()
     +DisplayPlayers(IEnumerable~Player~)
@@ -46,12 +41,8 @@ enum PlayerOrder {
 
 PlayerController --> PlayerView
 PlayerController --> Player
-<<<<<<< HEAD
 PlayerController --> CompareByName
 CompareByName ..|> IComparer
 Player ..|> IComparable
 
 ```
-=======
-```
->>>>>>> 849ac1b97601488b11623d6c56276ef749f1e48b
