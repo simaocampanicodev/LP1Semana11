@@ -2,6 +2,7 @@
 
 ## UML Class Diagram
 
+```
 classDiagram
 class PlayerView {
 +ShowMenu()
@@ -25,3 +26,4 @@ class PlayerController {
 
 PlayerController --> PlayerView
 PlayerController --> Player
+```
