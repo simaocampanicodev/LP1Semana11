@@ -13,8 +13,8 @@ namespace PlayerManagerMVC2.Views
             Console.WriteLine("1. Insert player");
             Console.WriteLine("2. List all players");
             Console.WriteLine("3. List players with score greater than");
-            Console.WriteLine("4. Sort players");
-            Console.WriteLine("0. Quit\n");
+            Console.WriteLine("4. Change player order (currently order is ByScore)");
+            Console.WriteLine("0. Exit\n");
             Console.Write("Your choice > ");
         }
 
@@ -25,7 +25,7 @@ namespace PlayerManagerMVC2.Views
 
             foreach (Player p in playersToList)
             {
-                Console.WriteLine($" -> {p.Name} with a score of {p.Score}");
+                Console.WriteLine($" -> {p.Name} ({p.Score})");
             }
             Console.WriteLine();
         }

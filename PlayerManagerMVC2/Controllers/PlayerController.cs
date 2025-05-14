@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using PlayerManagerMVC2.Models;
 using PlayerManagerMVC2.Views;
 
@@ -12,16 +13,34 @@ namespace PlayerManagerMVC2.Controllers
         private readonly IComparer<Player> compareByName;
         private readonly IComparer<Player> compareByNameReverse;
 
-        public PlayerController(PlayerView view)
+        public PlayerController(PlayerView view, string filename)
         {
             this.view = view;
             compareByName = new CompareByName(true);
             compareByNameReverse = new CompareByName(false);
+            playerList = new List<Player>();
+            LoadPlayersFromFile(filename);
+        }
 
-            playerList = new List<Player>() {
-                new Player("Best player ever", 100),
-                new Player("An even better player", 500)
-            };
+        private void LoadPlayersFromFile(string filename)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(filename);
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(',');
+                    if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int score))
+                    {
+                        playerList.Add(new Player(parts[0].Trim(), score));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.DisplayError($"Erro ao ler ficheiro: {ex.Message}");
+                Environment.Exit(1);
+            }
         }
 
         public void Start()
