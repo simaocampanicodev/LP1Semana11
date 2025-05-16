@@ -1,18 +1,26 @@
-﻿using System;
+using System;
 
-class Program
+public class Controller
 {
-    static void Main()
+    public int score { get; set; }
+    public int wrongAnswers { get; set; }
+    private readonly IView view;
+    public Controller(IView view)
     {
+        this.view = view;
+        this.score = 0;
+        this.wrongAnswers = 0;
+    }
+
+    public void Run()
+    {
+        view.StartScreen();
         Random rand = new Random();
-        int score = 0;
-        int wrongAnswers = 0;
+        Game(rand);
+    }
 
-        Console.WriteLine("=== Math Duel ===");
-        Console.WriteLine("Answer the math problems correctly!");
-        Console.WriteLine("You can make up to 3 mistakes.");
-        Console.WriteLine();
-
+    public void Game(Random rand)
+    {
         while (wrongAnswers < 3)
         {
             int a = rand.Next(1, 11);     // 1 to 10
@@ -38,23 +46,20 @@ class Program
                 question = $"{a} * {b} = ?";
             }
 
-            Console.Write("Question: " + question + " ");
-            string input = Console.ReadLine();
-
-            int playerAnswer = int.Parse(input);
+            int playerAnswer = int.Parse(view.GetQuestion(question));
 
             if (playerAnswer == correctAnswer)
             {
-                Console.WriteLine("Correct!\n");
+                view.ShowMessage("Correct!\n");
                 score++;
             }
             else
             {
-                Console.WriteLine($"Wrong! The correct answer was {correctAnswer}.\n");
+                view.GetRightAnswer(correctAnswer);
                 wrongAnswers++;
             }
         }
 
-        Console.WriteLine($"Game over! Your final score is: {score}");
+        view.GameOver(score);
     }
 }
